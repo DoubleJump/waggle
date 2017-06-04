@@ -1,0 +1,5 @@
+float stripes(vec2 st)
+{
+    //st = rotate(PI * -0.25) * st * 106.1;
+    return step(0.5, 1.0 - smoothstep(0.3,1.0, abs(sin(st.x * PI))));
+}

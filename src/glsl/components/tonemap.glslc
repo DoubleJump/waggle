@@ -1,0 +1,4 @@
+vec3 tonemap_reinhard(vec3 color) 
+{
+  return color / (color + vec3(1.0));
+}

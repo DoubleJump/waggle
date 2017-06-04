@@ -1,0 +1,6 @@
+vec3 billboard(mat4 mv, vec3 size)
+{
+	vec3 right = vec3(mv[0][0], mv[1][0], mv[2][0]) * size.x;
+	vec3 up = vec3(mv[0][1], mv[1][1], mv[2][1]) * size.y;
+	return right + up;
+}

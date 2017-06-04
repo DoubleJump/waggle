@@ -1,0 +1,13 @@
+vec2 safe_normalize(vec2 v) 
+{
+   float len = length(v);
+   len = (len > 0.0) ? 1.0 / len : 0.0;
+   return v * len;
+}
+
+vec3 safe_normalize(vec3 v) 
+{
+   float len = length(v);
+   len = (len > 0.0) ? 1.0 / len : 0.0;
+   return v * len;
+}

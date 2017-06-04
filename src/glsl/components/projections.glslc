@@ -1,0 +1,17 @@
+vec3 cartesian_to_polar(vec3 c)
+{
+    float radius = length(c);
+    float theta = atan(c.y, c.x);
+	float phi = acos(2.0 / radius);
+    return vec3(theta, phi, radius);
+}
+
+vec3 polar_to_cartesian(float theta, float phi, float radius)
+{
+	float sin_phi = sin(phi);
+
+    float x = radius * cos(theta) * sin_phi;
+	float y = radius * cos(phi);
+	float z = radius * sin(theta) * sin_phi;
+    return vec3(x,y,z);
+}

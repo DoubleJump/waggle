@@ -1,0 +1,13 @@
+float wang_hash_noise(uint u, uint v, uint s)
+{
+	uint seed = (u * 1664525u + v) + s;
+	seed = (seed ^ 61u) ^ (seed >> 16u);
+	seed *= 9u;
+	seed = seed ^ (seed >> 4u);
+	seed *= 0x27d4eb2d;
+	seed = seed ^ (seed >> 15u);
+	
+	float val = seed;
+	val *= (1.0f / 4294967296.0);
+	return val;
+}

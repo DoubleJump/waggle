@@ -1,0 +1,15 @@
+vec3 grid_to_sphere(vec3 p, float width, float height)
+{
+	const float PI = 3.14159265;
+
+    float radius = width / (2.0 * PI);
+
+	float phi = ((p.y / height) - 0.5) * PI;
+	float theta = (p.x / width) * 2.0 * PI;
+
+	float x = radius * sin(theta) * sin(phi);
+	float y = radius * cos(phi);
+	float z	= radius * cos(theta) * sin(phi);
+
+	return vec3(-x,y,-z);
+}

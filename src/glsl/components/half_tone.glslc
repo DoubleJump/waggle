@@ -1,0 +1,30 @@
+vec3 half_tone(sampler2D image, float grid_size, float smoothing) 
+{
+	vec3 rgb = vec3(0.0);
+	vec3 grid_rot = vec3(15.0, 45.0, 75.0);
+	float half_grid_size = grid_size / 2.0;
+	
+	for(int i = 0; i < 3; ++i)	
+	{
+		float angle = radians(grid_rot[i]);
+		float SA = sin(angle);
+		float CA = cos(angle);
+		
+		mat2 matA = mat2(vec2(CA,  SA), vec2(-SA, CA));
+		mat2 matB = mat2(vec2(CA, -SA), vec2( SA, CA));
+
+		vec2 grid_frag = (matA * gl_FragCoord.xy) / grid_size;
+		vec2 grid_dot = vec2(floor(grid_frag.x), floor(grid_frag.y)) * grid_size;
+		
+		grid_dot += vec2(half_grid_size);
+		vec2 render_dot = matB * grid_dot;
+		vec4 sample = texture2D(image, render_dot);
+		
+		float radius = sample[i] * (half_grid_size);
+		float frag_dist = distance(gl_FragCoord.xy, render_dot);
+		float smooth_dist = smoothing * (grid_size / 6.0);
+		rgb[i] += smoothstep(radius, radius-(radius*smoothing), frag_dist);
+	}
+
+	return rgb;	
+}

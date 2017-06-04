@@ -1,0 +1,44 @@
+float impulse(float k, float x)
+{
+    float h = k * x;
+    return h * exp(1.0 - h);
+}
+float cubic_pulse(float c, float w, float x)
+{
+    x = abs(x - c);
+    if(x > w) return 0.0;
+    x /= w;
+    return 1.0 - x * x * (3.0 - 2.0 * x);
+}
+float exp_step(float x, float k, float n)
+{
+    return exp(-k * pow(x,n));
+}
+float parabola(float x, float k)
+{
+    return pow(4.0 * x * (1.0 - x), k);
+}
+float power_curve(float x, float a, float b)
+{
+    float k = pow(a+b,a+b) / (pow(a,a) * pow(b,b));
+    return k * pow(x, a) * pow(1.0 - x, b);
+}
+
+float quadratic_through_point (float x, float a, float b)
+{
+	float E = 0.00001;
+	float min_param_a = 0.0 + E;
+	float max_param_a = 1.0 - E;
+	float min_param_b = 0.0;
+	float max_param_b = 1.0;
+
+	a = min(max_param_a, max(min_param_a, a));  
+	b = min(max_param_b, max(min_param_b, b)); 
+
+	float A = (1.0-b)/(1.0-a) - (b/a);
+	float B = (A*(a*a)-b)/a;
+	float y = A*(x*x) - B*(x);
+	y = min(1.0,max(0.0,y)); 
+
+	return y;
+}
